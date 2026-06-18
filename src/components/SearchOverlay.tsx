@@ -34,21 +34,36 @@ export function SearchOverlay({
     };
   }, [open, onClose]);
 
-  // Buscar con debounce.
+  // Buscar con debounce. Las actualizaciones de estado ocurren dentro del
+  // timeout (asíncrono), no de forma síncrona en el cuerpo del efecto.
   useEffect(() => {
-    if (!term.trim()) {
-      setResults([]);
-      setLoading(false);
-      return;
-    }
-    setLoading(true);
-    const id = setTimeout(() => {
-      getProducts({ query: term, first: 8 })
-        .then(setResults)
-        .catch(() => setResults([]))
-        .finally(() => setLoading(false));
-    }, 250);
-    return () => clearTimeout(id);
+    const q = term.trim();
+    let active = true;
+    const id = setTimeout(
+      () => {
+        if (!q) {
+          setResults([]);
+          setLoading(false);
+          return;
+        }
+        setLoading(true);
+        getProducts({ query: q, first: 8 })
+          .then((r) => {
+            if (active) setResults(r);
+          })
+          .catch(() => {
+            if (active) setResults([]);
+          })
+          .finally(() => {
+            if (active) setLoading(false);
+          });
+      },
+      q ? 250 : 0,
+    );
+    return () => {
+      active = false;
+      clearTimeout(id);
+    };
   }, [term]);
 
   if (!open) return null;
