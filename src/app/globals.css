@@ -1,26 +1,63 @@
 @import "tailwindcss";
 
+/* ------------------------------------------------------------------ */
+/* Brand design tokens — Tailwind v4 generates utilities from these.  */
+/* (e.g. --color-ink → bg-ink/text-ink, --font-display → font-display) */
+/* ------------------------------------------------------------------ */
+@theme {
+  --font-display: var(--font-bevan), Georgia, serif;
+  --font-serif: var(--font-zilla), Georgia, serif;
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+
+  --color-paper: #f6f3ee;
+  --color-ink: #1a1613;
+  --color-ink-soft: #4a423b;
+  --color-stone: #d9d2c7;
+  --color-stone-soft: #ece7df;
+  --color-accent: #a9743f;
+  --color-accent-dark: #8a5d31;
+  --color-success: #2f6b4f;
+  --color-danger: #b23b2e;
+
+  --radius-card: 0.5rem;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: var(--color-paper);
+  --foreground: var(--color-ink);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+* {
+  border-color: var(--color-stone);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Display headings use Bevan; section headings use Zilla Slab. */
+.font-display {
+  letter-spacing: 0.01em;
+}
+
+::selection {
+  background: var(--color-accent);
+  color: var(--color-paper);
+}
+
+/* Hide scrollbar utility for horizontal scrollers */
+@utility no-scrollbar {
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
