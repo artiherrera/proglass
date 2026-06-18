@@ -16,6 +16,15 @@ export const BRAND = {
   currency: "MXN",
 } as const;
 
+// Colecciones de categoría esperadas (manual). Se pre-generan aunque aún no
+// existan en Shopify, mostrando un estado "próximamente" en vez de 404.
+export const KNOWN_COLLECTIONS: { handle: string; title: string }[] = [
+  { handle: "calzado", title: "Calzado" },
+  { handle: "visual", title: "Visual" },
+  { handle: "personal", title: "Personal" },
+  { handle: "mas-vendidos", title: "Más vendidos" },
+];
+
 export type NavItem = { label: string; href: string };
 
 // Navegación principal por categorías (manual: Calzado · Visual · Personal).

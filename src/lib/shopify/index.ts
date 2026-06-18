@@ -12,11 +12,13 @@ import {
 } from "./mutations";
 import {
   GET_ALL_COLLECTION_HANDLES,
+  GET_ALL_PAGE_HANDLES,
   GET_ALL_PRODUCT_HANDLES,
   GET_CART,
   GET_COLLECTION_BY_HANDLE,
   GET_COLLECTION_PRODUCTS,
   GET_COLLECTIONS,
+  GET_PAGE_BY_HANDLE,
   GET_PRODUCT_BY_HANDLE,
   GET_PRODUCT_RECOMMENDATIONS,
   GET_PRODUCTS,
@@ -25,6 +27,7 @@ import type {
   Cart,
   Collection,
   Connection,
+  Page,
   Product,
   ShopifyCart,
   ShopifyCollection,
@@ -240,6 +243,28 @@ export function getAllProductHandles() {
 
 export function getAllCollectionHandles() {
   return getAllHandles(GET_ALL_COLLECTION_HANDLES, "collections");
+}
+
+// ---------------------------------------------------------------------------
+// Shopify Pages (content pages: shipping, contact, story, …)
+// ---------------------------------------------------------------------------
+
+export async function getPage(handle: string): Promise<Page | null> {
+  if (!isShopifyConfigured) return null;
+  const data = await shopifyFetch<{ page: Page | null }>({
+    query: GET_PAGE_BY_HANDLE,
+    variables: { handle },
+  });
+  return data.page ?? null;
+}
+
+export async function getAllPageHandles(): Promise<HandleNode[]> {
+  if (!isShopifyConfigured) return [];
+  const data = await shopifyFetch<{ pages: Connection<HandleNode> }>({
+    query: GET_ALL_PAGE_HANDLES,
+    variables: { first: 100 },
+  });
+  return flatten(data.pages);
 }
 
 // ---------------------------------------------------------------------------

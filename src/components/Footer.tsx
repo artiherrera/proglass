@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { BRAND, FOOTER_NAV, SOCIAL } from "@/lib/constants";
+import { PAYMENT_METHODS } from "@/lib/content";
 
 export function Footer() {
   const year = 2026;
@@ -48,11 +49,20 @@ export function Footer() {
           ))}
         </div>
 
-        <div className="mt-12 flex flex-col items-center justify-between gap-3 border-t border-stone pt-6 text-xs text-ink-soft/70 sm:flex-row">
+        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-stone pt-6 text-xs text-ink-soft/70 sm:flex-row">
           <p>
-            © {year} {BRAND.name}. Todos los derechos reservados.
+            © {year} {BRAND.name}. {BRAND.madeIn}. Todos los derechos reservados.
           </p>
-          <p>Hecho con Next.js + Shopify Headless.</p>
+          <div className="flex items-center gap-2">
+            {PAYMENT_METHODS.map((method) => (
+              <span
+                key={method}
+                className="rounded border border-stone bg-paper px-2 py-1 text-[11px] font-medium text-ink-soft"
+              >
+                {method}
+              </span>
+            ))}
+          </div>
         </div>
       </div>
     </footer>

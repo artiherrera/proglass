@@ -125,3 +125,33 @@ export const GET_CART = /* GraphQL */ `
   }
   ${cartFragment}
 `;
+
+export const GET_PAGE_BY_HANDLE = /* GraphQL */ `
+  query getPage($handle: String!) {
+    page(handle: $handle) {
+      id
+      title
+      handle
+      body
+      bodySummary
+      seo {
+        title
+        description
+      }
+      updatedAt
+    }
+  }
+`;
+
+export const GET_ALL_PAGE_HANDLES = /* GraphQL */ `
+  query getAllPageHandles($first: Int = 100) {
+    pages(first: $first) {
+      edges {
+        node {
+          handle
+          updatedAt
+        }
+      }
+    }
+  }
+`;

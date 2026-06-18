@@ -128,3 +128,13 @@ export type ShopifyCollection = Collection;
 export type ShopifyCart = Omit<Cart, "lines"> & {
   lines: Connection<CartLine>;
 };
+
+export type Page = {
+  id: string;
+  title: string;
+  handle: string;
+  body: string; // HTML
+  bodySummary: string;
+  seo: { title: string; description: string };
+  updatedAt: string;
+};
