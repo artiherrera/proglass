@@ -27,7 +27,7 @@ export function Header() {
         {/* Logo */}
         <Link
           href="/"
-          className="font-display text-2xl uppercase tracking-tight text-ink md:flex-none"
+          className="font-display text-2xl font-extrabold uppercase tracking-tight text-ink md:flex-none"
         >
           {BRAND.name}
         </Link>

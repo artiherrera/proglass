@@ -1,25 +1,50 @@
 @import "tailwindcss";
 
 /* ------------------------------------------------------------------ */
-/* Brand design tokens — Tailwind v4 generates utilities from these.  */
-/* (e.g. --color-ink → bg-ink/text-ink, --font-display → font-display) */
+/* ProGlass Care — sistema de marca (manual de identidad).            */
+/* Tailwind v4 genera utilidades desde estos tokens                   */
+/* (--color-ink → bg-ink/text-ink, --font-display → font-display).    */
+/* Nombres semánticos estables; los valores siguen el manual.         */
 /* ------------------------------------------------------------------ */
 @theme {
-  --font-display: var(--font-bevan), Georgia, serif;
-  --font-serif: var(--font-zilla), Georgia, serif;
+  /* Tipografía — Saira (títulos) + Inter (texto). */
+  --font-display: var(--font-saira), system-ui, sans-serif;
+  --font-serif: var(--font-saira), system-ui, sans-serif;
   --font-sans: var(--font-inter), system-ui, sans-serif;
 
-  --color-paper: #f6f3ee;
-  --color-ink: #1a1613;
-  --color-ink-soft: #4a423b;
-  --color-stone: #d9d2c7;
-  --color-stone-soft: #ece7df;
-  --color-accent: #a9743f;
-  --color-accent-dark: #8a5d31;
-  --color-success: #2f6b4f;
-  --color-danger: #b23b2e;
+  /* Neutros */
+  --color-paper: #ffffff; /* fondo base */
+  --color-surface: #f4f6f9; /* secciones suaves */
+  --color-stone-soft: #f4f6f9; /* alias usado en componentes */
+  --color-stone: #d8dee6; /* bordes / divisores (Line 300) */
+  --color-ink: #0b1018; /* texto principal / fondos oscuros */
+  --color-charcoal: #161a20; /* superficie oscura alterna */
+  --color-ink-soft: #2b313b; /* texto secundario (Slate 700) */
+  --color-muted: #6b7280; /* texto atenuado (Slate 500) */
 
-  --radius-card: 0.5rem;
+  /* Azul ProGlass + escala */
+  --color-accent: #0b5fe6; /* primario (Blue 500) */
+  --color-accent-dark: #0a4fc0; /* hover (Blue 600) */
+  --color-accent-active: #0b43a0; /* pressed (Blue 700) */
+  --color-blue-50: #eaf1fe;
+  --color-blue-100: #d2e2fd;
+  --color-blue-300: #6fa1f7; /* enlaces sobre oscuro */
+  --color-blue-900: #0e2e63;
+
+  /* Acentos por categoría */
+  --color-sneakers: #0b5fe6;
+  --color-glow: #8c97a4;
+  --color-fresh: #34c759;
+  --color-shield: #ff7a1a;
+  --color-vision: #06b6d4;
+  --color-soft: #8b5cf6;
+
+  /* Semánticos */
+  --color-success: #2fb14e;
+  --color-danger: #e5484d; /* oferta / error */
+  --color-warning: #f5a623;
+
+  --radius-card: 14px;
 }
 
 :root {
@@ -43,17 +68,17 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-/* Display headings use Bevan; section headings use Zilla Slab. */
+/* Saira es técnica y cuadrada; el tracking ligero refuerza el carácter. */
 .font-display {
   letter-spacing: 0.01em;
 }
 
 ::selection {
   background: var(--color-accent);
-  color: var(--color-paper);
+  color: #ffffff;
 }
 
-/* Hide scrollbar utility for horizontal scrollers */
+/* Ocultar scrollbar en carruseles horizontales */
 @utility no-scrollbar {
   &::-webkit-scrollbar {
     display: none;

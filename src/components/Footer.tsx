@@ -12,7 +12,7 @@ export function Footer() {
           <div className="col-span-2 md:col-span-1">
             <Link
               href="/"
-              className="font-display text-2xl uppercase tracking-tight text-ink"
+              className="font-display text-2xl font-extrabold uppercase tracking-tight text-ink"
             >
               {BRAND.name}
             </Link>
