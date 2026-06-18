@@ -1,3 +1,4 @@
+import { Icon } from "@/components/Icon";
 import { PILLARS } from "@/lib/content";
 
 export function Pillars() {
@@ -22,9 +23,7 @@ export function Pillars() {
               key={p.title}
               className="rounded-card border border-paper/10 bg-white/5 p-5 text-center"
             >
-              <span className="text-3xl" aria-hidden>
-                {p.icon}
-              </span>
+              <Icon name={p.icon} className="mx-auto h-8 w-8 text-blue-300" />
               <h3 className="mt-3 font-serif text-base">{p.title}</h3>
               <p className="mt-1.5 text-xs leading-relaxed text-paper/60">
                 {p.text}

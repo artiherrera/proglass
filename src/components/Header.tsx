@@ -1,14 +1,19 @@
 "use client";
 
 import Link from "next/link";
+import { Menu, Search, ShoppingBag, User, X } from "lucide-react";
 import { useState } from "react";
 
+import { SearchOverlay } from "@/components/SearchOverlay";
 import { useCart } from "@/components/cart/cart-context";
 import { BRAND, MAIN_NAV } from "@/lib/constants";
+
+const ACCOUNT_URL = `https://${process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN}/account`;
 
 export function Header() {
   const { totalQuantity, openCart } = useCart();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
 
   return (
     <header className="sticky top-0 z-40 border-b border-stone bg-paper/90 backdrop-blur">
@@ -19,9 +24,13 @@ export function Header() {
           onClick={() => setMenuOpen((v) => !v)}
           aria-label="Menú"
           aria-expanded={menuOpen}
-          className="flex h-9 w-9 items-center justify-center md:hidden"
+          className="flex h-9 w-9 items-center justify-center text-ink md:hidden"
         >
-          <span className="text-xl">{menuOpen ? "×" : "≡"}</span>
+          {menuOpen ? (
+            <X className="h-6 w-6" strokeWidth={1.5} />
+          ) : (
+            <Menu className="h-6 w-6" strokeWidth={1.5} />
+          )}
         </button>
 
         {/* Logo */}
@@ -45,20 +54,39 @@ export function Header() {
           ))}
         </nav>
 
-        {/* Cart */}
-        <button
-          type="button"
-          onClick={openCart}
-          aria-label={`Abrir carrito, ${totalQuantity} artículos`}
-          className="relative flex h-9 items-center gap-2 rounded-full px-3 text-sm font-medium text-ink hover:bg-stone-soft"
-        >
-          <span>Carrito</span>
-          {totalQuantity > 0 && (
-            <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-accent px-1 text-xs font-semibold text-paper tabular-nums">
-              {totalQuantity}
-            </span>
-          )}
-        </button>
+        {/* Actions */}
+        <div className="flex items-center gap-1 sm:gap-2">
+          <button
+            type="button"
+            onClick={() => setSearchOpen(true)}
+            aria-label="Buscar"
+            className="flex h-9 w-9 items-center justify-center rounded-full text-ink hover:bg-stone-soft"
+          >
+            <Search className="h-5 w-5" strokeWidth={1.5} />
+          </button>
+
+          <a
+            href={ACCOUNT_URL}
+            aria-label="Mi cuenta"
+            className="hidden h-9 w-9 items-center justify-center rounded-full text-ink hover:bg-stone-soft sm:flex"
+          >
+            <User className="h-5 w-5" strokeWidth={1.5} />
+          </a>
+
+          <button
+            type="button"
+            onClick={openCart}
+            aria-label={`Abrir carrito, ${totalQuantity} artículos`}
+            className="relative flex h-9 w-9 items-center justify-center rounded-full text-ink hover:bg-stone-soft"
+          >
+            <ShoppingBag className="h-5 w-5" strokeWidth={1.5} />
+            {totalQuantity > 0 && (
+              <span className="absolute -right-0.5 -top-0.5 flex h-5 min-w-5 items-center justify-center rounded-full bg-accent px-1 text-[11px] font-semibold text-paper tabular-nums">
+                {totalQuantity}
+              </span>
+            )}
+          </button>
+        </div>
       </div>
 
       {/* Mobile nav drawer */}
@@ -76,9 +104,19 @@ export function Header() {
                 </Link>
               </li>
             ))}
+            <li>
+              <a
+                href={ACCOUNT_URL}
+                className="block py-3 text-base font-medium text-ink"
+              >
+                Mi cuenta
+              </a>
+            </li>
           </ul>
         </nav>
       )}
+
+      <SearchOverlay open={searchOpen} onClose={() => setSearchOpen(false)} />
     </header>
   );
 }

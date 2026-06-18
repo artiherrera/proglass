@@ -4,10 +4,10 @@
 export type Guarantee = { icon: string; title: string; text: string };
 
 export const GUARANTEES: Guarantee[] = [
-  { icon: "🚚", title: "Envío gratis", text: "En pedidos desde $799" },
-  { icon: "🛡️", title: "Garantía 30 días", text: "Devolución sin complicaciones" },
-  { icon: "⚡", title: "Acción rápida", text: "Resultados desde el primer uso" },
-  { icon: "🇲🇽", title: "Hecho en México", text: "Calidad premium de origen" },
+  { icon: "truck", title: "Envío gratis", text: "En pedidos desde $799" },
+  { icon: "shield-check", title: "Garantía 30 días", text: "Devolución sin complicaciones" },
+  { icon: "zap", title: "Acción rápida", text: "Resultados desde el primer uso" },
+  { icon: "badge-check", title: "Hecho en México", text: "Calidad premium de origen" },
 ];
 
 // Pilares de marca (manual §1) → sección "Sellos de confianza".
@@ -15,27 +15,27 @@ export type Pillar = { icon: string; title: string; text: string };
 
 export const PILLARS: Pillar[] = [
   {
-    icon: "✨",
+    icon: "sparkles",
     title: "Calidad Premium",
     text: "Fórmulas y materiales de alta calidad para un cuidado superior.",
   },
   {
-    icon: "🤝",
+    icon: "shield-check",
     title: "Confianza",
     text: "Transparencia y seguridad en cada producto que acompaña tu rutina.",
   },
   {
-    icon: "💡",
+    icon: "lightbulb",
     title: "Innovación",
     text: "Soluciones inteligentes que marcan la diferencia.",
   },
   {
-    icon: "📈",
+    icon: "trending-up",
     title: "Resultados Reales",
     text: "Efectividad comprobada: una limpieza y protección que se nota.",
   },
   {
-    icon: "🇲🇽",
+    icon: "badge-check",
     title: "Hecho en México",
     text: "Orgullosamente desarrollado y producido en México, pensando en ti.",
   },

@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { Minus, Plus, Trash2 } from "lucide-react";
 
 import { useCart } from "@/components/cart/cart-context";
 import type { CartLine } from "@/lib/shopify/types";
@@ -56,7 +57,7 @@ export function CartLineItem({
             aria-label="Quitar del carrito"
             className="text-ink-soft/50 transition-colors hover:text-danger disabled:opacity-40"
           >
-            ✕
+            <Trash2 className="h-4 w-4" strokeWidth={1.5} />
           </button>
         </div>
 
@@ -71,9 +72,9 @@ export function CartLineItem({
               }
               disabled={isUpdating}
               aria-label="Reducir cantidad"
-              className="px-3 py-1 text-ink-soft hover:text-ink disabled:opacity-40"
+              className="px-2.5 py-1.5 text-ink-soft hover:text-ink disabled:opacity-40"
             >
-              −
+              <Minus className="h-3.5 w-3.5" strokeWidth={2} />
             </button>
             <span className="min-w-6 text-center text-sm tabular-nums">
               {line.quantity}
@@ -85,9 +86,9 @@ export function CartLineItem({
               }
               disabled={isUpdating}
               aria-label="Aumentar cantidad"
-              className="px-3 py-1 text-ink-soft hover:text-ink disabled:opacity-40"
+              className="px-2.5 py-1.5 text-ink-soft hover:text-ink disabled:opacity-40"
             >
-              +
+              <Plus className="h-3.5 w-3.5" strokeWidth={2} />
             </button>
           </div>
           <span className="text-sm font-medium tabular-nums">

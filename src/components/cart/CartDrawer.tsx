@@ -1,5 +1,6 @@
 "use client";
 
+import { ShoppingBag, X } from "lucide-react";
 import { useEffect } from "react";
 
 import { CartLineItem } from "@/components/cart/CartLineItem";
@@ -54,14 +55,15 @@ export function CartDrawer() {
             type="button"
             onClick={closeCart}
             aria-label="Cerrar carrito"
-            className="text-2xl leading-none text-ink-soft hover:text-ink"
+            className="text-ink-soft hover:text-ink"
           >
-            ×
+            <X className="h-5 w-5" strokeWidth={1.5} />
           </button>
         </header>
 
         {isEmpty ? (
           <div className="flex flex-1 flex-col items-center justify-center gap-3 px-6 text-center">
+            <ShoppingBag className="h-12 w-12 text-stone" strokeWidth={1.25} />
             <p className="font-serif text-lg">Tu carrito está vacío</p>
             <p className="text-sm text-ink-soft">
               Explora el catálogo y añade tus favoritos.
