@@ -5,12 +5,15 @@ applications:
       phases:
         preBuild:
           commands:
+            # Next.js 16 requiere Node >= 20. nvm viene en la imagen de Amplify.
+            - nvm install 20
+            - nvm use 20
             - npm ci
         build:
           commands:
             - npm run build
       artifacts:
-        # `output: "export"` writes the static site to ./out
+        # `output: "export"` escribe el sitio estático en ./out
         baseDirectory: out
         files:
           - '**/*'
