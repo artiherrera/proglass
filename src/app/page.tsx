@@ -6,8 +6,11 @@ import { SetupNotice } from "@/components/SetupNotice";
 import { CategoryCards } from "@/components/home/CategoryCards";
 import { Guarantees } from "@/components/home/Guarantees";
 import { HelpBanner } from "@/components/home/HelpBanner";
+import { HowItWorks } from "@/components/home/HowItWorks";
 import { Newsletter } from "@/components/home/Newsletter";
 import { Pillars } from "@/components/home/Pillars";
+import { ProblemSolution } from "@/components/home/ProblemSolution";
+import { ResultsShowcase } from "@/components/home/ResultsShowcase";
 import { Stats } from "@/components/home/Stats";
 import { Testimonials } from "@/components/home/Testimonials";
 import { getProducts, isShopifyConfigured } from "@/lib/shopify";
@@ -19,6 +22,10 @@ export default async function HomePage() {
     <>
       <Hero />
       <Guarantees />
+
+      {/* Vende el resultado: comparador antes/después */}
+      <ResultsShowcase />
+      <ProblemSolution />
 
       {/* Más vendidos */}
       <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
@@ -42,6 +49,7 @@ export default async function HomePage() {
         )}
       </section>
 
+      <HowItWorks />
       <CategoryCards />
       <Pillars />
       <Stats />

@@ -1,10 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Check } from "lucide-react";
 
+import { BeforeAfter } from "@/components/BeforeAfter";
 import { ProductGrid } from "@/components/ProductGrid";
+import { HowItWorks } from "@/components/home/HowItWorks";
 import { ProductView } from "@/components/product/ProductView";
 import { BRAND, SITE_URL } from "@/lib/constants";
+import { DEFAULT_BEFORE_AFTER, RESULT_BENEFITS } from "@/lib/content";
 import {
   getAllProductHandles,
   getProduct,
@@ -99,6 +103,39 @@ export default async function ProductPage({ params }: Props) {
       </nav>
 
       <ProductView product={product} />
+
+      {/* Vende el resultado: comparador antes/después */}
+      <section className="mt-20 grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+        <div>
+          <span className="text-xs font-semibold uppercase tracking-[0.18em] text-accent">
+            La diferencia ProGlass
+          </span>
+          <h2 className="mt-2 font-display text-2xl font-extrabold uppercase italic text-ink sm:text-3xl">
+            Mira la diferencia
+          </h2>
+          <p className="mt-3 text-ink-soft">
+            Arrastra el divisor para ver el antes y después.
+          </p>
+          <ul className="mt-6 space-y-3">
+            {RESULT_BENEFITS.map((b) => (
+              <li key={b} className="flex items-center gap-3 text-sm text-ink">
+                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-blue-50 text-accent">
+                  <Check className="h-4 w-4" strokeWidth={2} />
+                </span>
+                {b}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <BeforeAfter
+          before={DEFAULT_BEFORE_AFTER.before}
+          after={DEFAULT_BEFORE_AFTER.after}
+        />
+      </section>
+
+      <div className="mt-8 border-t border-stone">
+        <HowItWorks />
+      </div>
 
       {recommendations.length > 0 && (
         <section className="mt-24">

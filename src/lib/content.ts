@@ -74,6 +74,46 @@ export const TESTIMONIALS: Testimonial[] = [
 
 export const PAYMENT_METHODS = ["Visa", "Mastercard", "Amex", "PayPal"];
 
+// --- Enfoque "vende el resultado" (before/after) -------------------------
+
+// Imágenes por defecto del comparador. Reemplázalas por fotos reales en
+// /public o, por producto, desde metafields de Shopify.
+export const DEFAULT_BEFORE_AFTER = {
+  before: "/ba-before.svg",
+  after: "/ba-after.svg",
+};
+
+export const RESULT_BENEFITS = [
+  "Recupera el aspecto original",
+  "Elimina manchas y malos olores",
+  "Protege y prolonga la vida útil",
+];
+
+export type ProblemSolution = { problem: string; solution: string };
+
+export const PROBLEMS: ProblemSolution[] = [
+  {
+    problem: "Suelas amarillas y manchas difíciles",
+    solution: "Limpieza profunda que devuelve el color original.",
+  },
+  {
+    problem: "Mal olor persistente",
+    solution: "Elimina bacterias y deja una frescura que dura.",
+  },
+  {
+    problem: "Daño por agua y desgaste",
+    solution: "Protege e impermeabiliza para que duren más.",
+  },
+];
+
+export type Step = { n: number; title: string; text: string };
+
+export const STEPS: Step[] = [
+  { n: 1, title: "Aplica", text: "Aplica ProGlass sobre la superficie a tratar." },
+  { n: 2, title: "Talla", text: "Frota suavemente con el paño de microfibra." },
+  { n: 3, title: "Listo", text: "Deja secar y disfruta el resultado premium." },
+];
+
 // Contenido por defecto de páginas estáticas. Si existe una página con el mismo
 // handle en Shopify, esa tiene prioridad (se puede editar sin código).
 export type StaticPage = { title: string; html: string };
