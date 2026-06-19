@@ -128,8 +128,9 @@ export default async function ProductPage({ params }: Props) {
           </ul>
         </div>
         <BeforeAfter
-          before={DEFAULT_BEFORE_AFTER.before}
-          after={DEFAULT_BEFORE_AFTER.after}
+          before={product.beforeAfter?.before ?? DEFAULT_BEFORE_AFTER.before}
+          after={product.beforeAfter?.after ?? DEFAULT_BEFORE_AFTER.after}
+          alt={product.title}
         />
       </section>
 

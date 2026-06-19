@@ -155,3 +155,29 @@ export const GET_ALL_PAGE_HANDLES = /* GraphQL */ `
     }
   }
 `;
+
+// Metaobjeto "Caso de resultado" (before/after) — type handle: result_case.
+export const GET_RESULT_CASES = /* GraphQL */ `
+  query getResultCases($first: Int = 12) {
+    metaobjects(type: "result_case", first: $first) {
+      edges {
+        node {
+          id
+          handle
+          fields {
+            key
+            value
+            reference {
+              ... on MediaImage {
+                image {
+                  url
+                  altText
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;

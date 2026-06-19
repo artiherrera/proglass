@@ -56,6 +56,8 @@ export type Product = {
   // Judge.me ratings synced into Shopify metafields (reviews namespace).
   rating: number | null;
   ratingCount: number | null;
+  // Before/after images from product metafields (custom namespace).
+  beforeAfter: { before: string; after: string } | null;
   updatedAt: string;
 };
 
@@ -112,15 +114,31 @@ export type ShopifyMetafield = {
   value: string;
 } | null;
 
+// Raw shape of a file/image metafield resolved through its MediaImage reference.
+export type ShopifyImageMetafield = {
+  reference: { image: ShopifyImage } | null;
+} | null;
+
 export type ShopifyProduct = Omit<
   Product,
-  "images" | "variants" | "options" | "rating" | "ratingCount"
+  "images" | "variants" | "options" | "rating" | "ratingCount" | "beforeAfter"
 > & {
   images: Connection<ShopifyImage>;
   variants: Connection<ProductVariant>;
   options: Array<{ id: string; name: string; optionValues: Array<{ name: string }> }>;
   ratingMetafield: ShopifyMetafield;
   ratingCountMetafield: ShopifyMetafield;
+  beforeImage: ShopifyImageMetafield;
+  afterImage: ShopifyImageMetafield;
+};
+
+// A "Caso de resultado" metaobject (before/after) managed in Shopify Admin.
+export type ResultCase = {
+  id: string;
+  title: string;
+  before: string;
+  after: string;
+  position: number;
 };
 
 export type ShopifyCollection = Collection;

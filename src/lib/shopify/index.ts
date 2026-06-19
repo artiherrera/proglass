@@ -22,6 +22,7 @@ import {
   GET_PRODUCT_BY_HANDLE,
   GET_PRODUCT_RECOMMENDATIONS,
   GET_PRODUCTS,
+  GET_RESULT_CASES,
 } from "./queries";
 import type {
   Cart,
@@ -29,6 +30,7 @@ import type {
   Connection,
   Page,
   Product,
+  ResultCase,
   ShopifyCart,
   ShopifyCollection,
   ShopifyImage,
@@ -72,8 +74,19 @@ function parseRating(value: string | undefined | null): number | null {
 function reshapeProduct(product: ShopifyProduct | null | undefined): Product | null {
   if (!product) return null;
 
-  const { images, variants, options, ratingMetafield, ratingCountMetafield, ...rest } =
-    product;
+  const {
+    images,
+    variants,
+    options,
+    ratingMetafield,
+    ratingCountMetafield,
+    beforeImage,
+    afterImage,
+    ...rest
+  } = product;
+
+  const before = beforeImage?.reference?.image?.url;
+  const after = afterImage?.reference?.image?.url;
 
   return {
     ...rest,
@@ -94,6 +107,7 @@ function reshapeProduct(product: ShopifyProduct | null | undefined): Product | n
     ratingCount: ratingCountMetafield?.value
       ? Number.parseInt(ratingCountMetafield.value, 10) || null
       : null,
+    beforeAfter: before && after ? { before, after } : null,
   };
 }
 
@@ -265,6 +279,48 @@ export async function getAllPageHandles(): Promise<HandleNode[]> {
     variables: { first: 100 },
   });
   return flatten(data.pages);
+}
+
+// ---------------------------------------------------------------------------
+// Metaobjects: "Caso de resultado" (before/after, editable desde Shopify)
+// ---------------------------------------------------------------------------
+
+type ResultCaseField = {
+  key: string;
+  value: string | null;
+  reference: { image: { url: string; altText: string | null } } | null;
+};
+type ResultCaseNode = { id: string; handle: string; fields: ResultCaseField[] };
+
+function reshapeResultCase(node: ResultCaseNode): ResultCase | null {
+  const field = (k: string) => node.fields.find((f) => f.key === k);
+  const before = field("before_image")?.reference?.image?.url;
+  const after = field("after_image")?.reference?.image?.url;
+  if (!before || !after) return null;
+  return {
+    id: node.id,
+    title: field("title")?.value ?? "",
+    before,
+    after,
+    position: Number(field("position")?.value ?? "0") || 0,
+  };
+}
+
+export async function getResultCases(): Promise<ResultCase[]> {
+  if (!isShopifyConfigured) return [];
+  try {
+    const data = await shopifyFetch<{ metaobjects: Connection<ResultCaseNode> }>({
+      query: GET_RESULT_CASES,
+      variables: { first: 12 },
+    });
+    return flatten(data.metaobjects)
+      .map(reshapeResultCase)
+      .filter((c): c is ResultCase => Boolean(c))
+      .sort((a, b) => a.position - b.position);
+  } catch {
+    // El metaobjeto puede no existir aún o no estar expuesto a Storefront API.
+    return [];
+  }
 }
 
 // ---------------------------------------------------------------------------

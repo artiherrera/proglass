@@ -12,10 +12,13 @@ import { Pillars } from "@/components/home/Pillars";
 import { ResultsShowcase } from "@/components/home/ResultsShowcase";
 import { Stats } from "@/components/home/Stats";
 import { Testimonials } from "@/components/home/Testimonials";
-import { getProducts, isShopifyConfigured } from "@/lib/shopify";
+import { getProducts, getResultCases, isShopifyConfigured } from "@/lib/shopify";
 
 export default async function HomePage() {
-  const featured = await getProducts({ first: 8, sortKey: "BEST_SELLING" });
+  const [featured, resultCases] = await Promise.all([
+    getProducts({ first: 8, sortKey: "BEST_SELLING" }),
+    getResultCases(),
+  ]);
 
   return (
     <>
@@ -23,7 +26,7 @@ export default async function HomePage() {
       <Guarantees />
 
       {/* Vende el resultado: comparador antes/después */}
-      <ResultsShowcase />
+      <ResultsShowcase cases={resultCases} />
 
       {/* Más vendidos */}
       <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">

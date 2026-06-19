@@ -2,8 +2,15 @@ import Link from "next/link";
 
 import { BeforeAfter } from "@/components/BeforeAfter";
 import { RESULTS } from "@/lib/content";
+import type { ResultCase } from "@/lib/shopify/types";
 
-export function ResultsShowcase() {
+// Usa los casos del metaobjeto de Shopify si existen; si no, los placeholders.
+export function ResultsShowcase({ cases }: { cases?: ResultCase[] }) {
+  const items =
+    cases && cases.length > 0
+      ? cases.map((c) => ({ title: c.title, before: c.before, after: c.after }))
+      : RESULTS;
+
   return (
     <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
       <div className="mx-auto mb-10 max-w-2xl text-center">
@@ -19,8 +26,8 @@ export function ResultsShowcase() {
       </div>
 
       <div className="grid gap-6 md:grid-cols-3">
-        {RESULTS.map((r) => (
-          <figure key={r.title}>
+        {items.map((r, i) => (
+          <figure key={`${r.title}-${i}`}>
             <BeforeAfter before={r.before} after={r.after} alt={r.title} />
             <figcaption className="mt-3 text-center text-sm font-medium text-ink">
               {r.title}

@@ -99,6 +99,24 @@ export const productFragment = /* GraphQL */ `
     ratingCountMetafield: metafield(namespace: "reviews", key: "rating_count") {
       value
     }
+    beforeImage: metafield(namespace: "custom", key: "before_image") {
+      reference {
+        ... on MediaImage {
+          image {
+            ...image
+          }
+        }
+      }
+    }
+    afterImage: metafield(namespace: "custom", key: "after_image") {
+      reference {
+        ... on MediaImage {
+          image {
+            ...image
+          }
+        }
+      }
+    }
   }
   ${imageFragment}
   ${seoFragment}
