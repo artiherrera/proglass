@@ -95,7 +95,7 @@ export type ResultItem = { title: string; before: string; after: string };
 // imagen por fotos reales en /public (o conéctalas a metafields de Shopify).
 export const RESULTS: ResultItem[] = [
   { title: "Tenis blancos", before: "/ba-before.svg", after: "/ba-after.svg" },
-  { title: "Suela amarillada", before: "/ba-before.svg", after: "/ba-after.svg" },
+  { title: "Pantalla de teléfono", before: "/ba-before.svg", after: "/ba-after.svg" },
   { title: "Lentes opacos", before: "/ba-before.svg", after: "/ba-after.svg" },
 ];
 
