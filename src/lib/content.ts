@@ -89,21 +89,14 @@ export const RESULT_BENEFITS = [
   "Protege y prolonga la vida útil",
 ];
 
-export type ProblemSolution = { problem: string; solution: string };
+export type ResultItem = { title: string; before: string; after: string };
 
-export const PROBLEMS: ProblemSolution[] = [
-  {
-    problem: "Suelas amarillas y manchas difíciles",
-    solution: "Limpieza profunda que devuelve el color original.",
-  },
-  {
-    problem: "Mal olor persistente",
-    solution: "Elimina bacterias y deja una frescura que dura.",
-  },
-  {
-    problem: "Daño por agua y desgaste",
-    solution: "Protege e impermeabiliza para que duren más.",
-  },
+// Casos para la sección "Resultados que se ven" (mínimo 3). Reemplaza cada
+// imagen por fotos reales en /public (o conéctalas a metafields de Shopify).
+export const RESULTS: ResultItem[] = [
+  { title: "Tenis blancos", before: "/ba-before.svg", after: "/ba-after.svg" },
+  { title: "Suela amarillada", before: "/ba-before.svg", after: "/ba-after.svg" },
+  { title: "Lentes opacos", before: "/ba-before.svg", after: "/ba-after.svg" },
 ];
 
 export type Step = { n: number; title: string; text: string };

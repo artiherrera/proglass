@@ -9,7 +9,6 @@ import { HelpBanner } from "@/components/home/HelpBanner";
 import { HowItWorks } from "@/components/home/HowItWorks";
 import { Newsletter } from "@/components/home/Newsletter";
 import { Pillars } from "@/components/home/Pillars";
-import { ProblemSolution } from "@/components/home/ProblemSolution";
 import { ResultsShowcase } from "@/components/home/ResultsShowcase";
 import { Stats } from "@/components/home/Stats";
 import { Testimonials } from "@/components/home/Testimonials";
@@ -25,7 +24,6 @@ export default async function HomePage() {
 
       {/* Vende el resultado: comparador antes/después */}
       <ResultsShowcase />
-      <ProblemSolution />
 
       {/* Más vendidos */}
       <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
