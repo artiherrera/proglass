@@ -148,6 +148,62 @@ if (cols.length === 0) {
   );
 }
 
+// --- Metaobjeto result_case (before/after) -------------------------------
+console.log(`\n  ${c.bold("Casos before/after (metaobjeto result_case):")}`);
+const META_QUERY = /* GraphQL */ `
+  query {
+    metaobjects(type: "result_case", first: 12) {
+      edges {
+        node {
+          handle
+          fields {
+            key
+            value
+            reference { ... on MediaImage { image { url } } }
+          }
+        }
+      }
+    }
+  }
+`;
+try {
+  const metaRes = await fetch(endpoint, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "X-Shopify-Storefront-Access-Token": TOKEN,
+    },
+    body: JSON.stringify({ query: META_QUERY }),
+  });
+  const metaBody = await metaRes.json();
+  if (metaBody.errors?.length) {
+    console.log(c.yellow(`    ⚠ ${metaBody.errors.map((e) => e.message).join("; ")}`));
+    console.log(
+      c.dim(
+        "      Revisa: 'Acceso a la API de tiendas online' (Lectura) activado en la definición.",
+      ),
+    );
+  } else {
+    const nodes = metaBody.data?.metaobjects?.edges?.map((e) => e.node) ?? [];
+    if (nodes.length === 0) {
+      console.log(
+        c.yellow("    ⚠ Definición legible, pero sin entradas. Crea al menos una."),
+      );
+    } else {
+      for (const n of nodes) {
+        const f = (k) => n.fields.find((x) => x.key === k);
+        const title = f("title")?.value ?? c.yellow("(falta key 'title')");
+        const before = (f("before") ?? f("before_image"))?.reference?.image?.url ? c.green("✓") : c.red("✗");
+        const after = (f("after") ?? f("after_image"))?.reference?.image?.url ? c.green("✓") : c.red("✗");
+        console.log(`    · ${title}  [antes ${before} · después ${after}]`);
+      }
+      console.log(c.green(`    ✓ ${nodes.length} caso(s) legibles desde Storefront.`));
+    }
+  }
+} catch (err) {
+  console.log(c.yellow(`    ⚠ No se pudo leer metaobjects: ${err.message}`));
+}
+
 console.log(
   c.dim(`\n  Siguiente: actualiza la nav y corre 'npm run dev' o 'npm run build'.\n`),
 );

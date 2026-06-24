@@ -294,8 +294,9 @@ type ResultCaseNode = { id: string; handle: string; fields: ResultCaseField[] };
 
 function reshapeResultCase(node: ResultCaseNode): ResultCase | null {
   const field = (k: string) => node.fields.find((f) => f.key === k);
-  const before = field("before_image")?.reference?.image?.url;
-  const after = field("after_image")?.reference?.image?.url;
+  // Acepta tanto `before`/`after` como `before_image`/`after_image`.
+  const before = (field("before") ?? field("before_image"))?.reference?.image?.url;
+  const after = (field("after") ?? field("after_image"))?.reference?.image?.url;
   if (!before || !after) return null;
   return {
     id: node.id,

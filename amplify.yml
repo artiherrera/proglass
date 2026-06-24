@@ -19,5 +19,7 @@ applications:
           - '**/*'
       cache:
         paths:
+          # Solo dependencias. NO cacheamos .next/cache: contiene el data-cache
+          # de Shopify y, si persiste entre builds, mostraría contenido viejo.
+          # Cada rebuild (push o webhook) debe leer Shopify fresco.
           - node_modules/**/*
-          - .next/cache/**/*
