@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 import { BRAND, FOOTER_NAV, SOCIAL } from "@/lib/constants";
@@ -11,11 +12,14 @@ export function Footer() {
       <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
         <div className="grid grid-cols-2 gap-10 md:grid-cols-4">
           <div className="col-span-2 md:col-span-1">
-            <Link
-              href="/"
-              className="font-display text-2xl font-extrabold uppercase tracking-tight text-ink"
-            >
-              {BRAND.name}
+            <Link href="/" aria-label={BRAND.name}>
+              <Image
+                src="/logo.svg"
+                alt={BRAND.name}
+                width={174}
+                height={40}
+                className="h-9 w-auto"
+              />
             </Link>
             <p className="mt-3 max-w-xs text-sm text-ink-soft">{BRAND.tagline}</p>
             <div className="mt-4 flex gap-4 text-sm">

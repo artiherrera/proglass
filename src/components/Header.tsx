@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { Menu, Search, ShoppingBag, User, X } from "lucide-react";
 import { useState } from "react";
@@ -34,11 +35,14 @@ export function Header() {
         </button>
 
         {/* Logo */}
-        <Link
-          href="/"
-          className="font-display text-2xl font-extrabold uppercase tracking-tight text-ink md:flex-none"
-        >
-          {BRAND.name}
+        <Link href="/" aria-label={BRAND.name} className="md:flex-none">
+          <Image
+            src="/logo.svg"
+            alt={BRAND.name}
+            width={174}
+            height={40}
+            className="h-8 w-auto sm:h-9"
+          />
         </Link>
 
         {/* Desktop nav */}
