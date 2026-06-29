@@ -250,8 +250,13 @@ try {
           ? v.sources?.find((s) => s.mimeType === "video/mp4")?.url || v.sources?.[0]?.url
           : v?.url;
       const pUrl = ref("poster")?.image?.url;
-      console.log(`    video: ${vUrl ? c.green("✓ " + vUrl.slice(0, 60)) : c.red("✗ (falta key 'video' o acceso)")}`);
-      console.log(`    poster: ${pUrl ? c.green("✓") : c.dim("— (opcional)")}`);
+      const hv = ref("howto_video") || ref("how_to_video");
+      const hvUrl = hv?.__typename === "Video"
+        ? hv.sources?.find((s) => s.mimeType === "video/mp4")?.url || hv.sources?.[0]?.url
+        : hv?.url;
+      console.log(`    video (hero):     ${vUrl ? c.green("✓ " + vUrl.slice(0, 55)) : c.red("✗ (falta key 'video' o acceso)")}`);
+      console.log(`    poster:           ${pUrl ? c.green("✓") : c.dim("— (opcional)")}`);
+      console.log(`    howto (vertical): ${hvUrl ? c.green("✓ " + hvUrl.slice(0, 55)) : c.dim("— (opcional, key 'howto_video')")}`);
     }
   }
 } catch (err) {

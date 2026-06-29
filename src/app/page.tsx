@@ -56,7 +56,7 @@ export default async function HomePage() {
         )}
       </section>
 
-      <HowItWorks />
+      <HowItWorks videoSrc={hero?.howtoVideoUrl} poster={hero?.howtoPosterUrl} />
       <CategoryCards />
       <Pillars />
       <Stats />

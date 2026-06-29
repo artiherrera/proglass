@@ -335,6 +335,17 @@ type HeroFieldRef = {
 } | null;
 type HeroNode = { fields: Array<{ key: string; reference: HeroFieldRef }> };
 
+function videoUrlFromRef(ref: HeroFieldRef): string | null {
+  if (ref?.__typename === "Video" && ref.sources?.length) {
+    // Prefiere mp4; si no, la primera fuente disponible.
+    return (
+      ref.sources.find((s) => s.mimeType === "video/mp4")?.url ??
+      ref.sources[0].url
+    );
+  }
+  return ref?.url ?? null; // GenericFile (mp4 subido como archivo)
+}
+
 export async function getHero(): Promise<Hero | null> {
   if (!isShopifyConfigured) return null;
   try {
@@ -343,27 +354,21 @@ export async function getHero(): Promise<Hero | null> {
     });
     const node = flatten(data.metaobjects)[0];
     if (!node) return null;
-    const ref = (k: string) =>
-      node.fields.find((f) => f.key === k)?.reference ?? null;
+    const ref = (...keys: string[]) =>
+      node.fields.find((f) => keys.includes(f.key))?.reference ?? null;
 
     const video = ref("video");
-    const poster = ref("poster");
+    const howto = ref("howto_video", "how_to_video");
 
-    let videoUrl: string | null = null;
-    if (video?.__typename === "Video" && video.sources?.length) {
-      // Prefiere mp4; si no, la primera fuente disponible.
-      videoUrl =
-        video.sources.find((s) => s.mimeType === "video/mp4")?.url ??
-        video.sources[0].url;
-    } else if (video?.url) {
-      videoUrl = video.url; // GenericFile (mp4 subido como archivo)
-    }
-
-    const posterUrl =
-      poster?.image?.url ?? video?.previewImage?.url ?? null;
-
-    if (!videoUrl) return null;
-    return { videoUrl, posterUrl };
+    return {
+      videoUrl: videoUrlFromRef(video),
+      posterUrl: ref("poster")?.image?.url ?? video?.previewImage?.url ?? null,
+      howtoVideoUrl: videoUrlFromRef(howto),
+      howtoPosterUrl:
+        ref("howto_poster", "how_to_poster")?.image?.url ??
+        howto?.previewImage?.url ??
+        null,
+    };
   } catch {
     return null;
   }

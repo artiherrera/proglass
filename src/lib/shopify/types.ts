@@ -141,10 +141,13 @@ export type ResultCase = {
   position: number;
 };
 
-// Hero metaobject (background video managed in Shopify Admin).
+// Hero / home media metaobject (managed in Shopify Admin).
 export type Hero = {
   videoUrl: string | null;
   posterUrl: string | null;
+  // Vertical "how it works" video (TikTok-style).
+  howtoVideoUrl: string | null;
+  howtoPosterUrl: string | null;
 };
 
 export type ShopifyCollection = Collection;
