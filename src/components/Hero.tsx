@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { HeroVideo } from "@/components/HeroVideo";
 import { BRAND } from "@/lib/constants";
 
 // Hero con video de fondo + scrim oscuro (degradado) + glow azul para
@@ -9,19 +10,7 @@ export function Hero() {
   return (
     <section className="relative overflow-hidden bg-ink text-paper">
       {/* Video de fondo */}
-      <video
-        className="absolute inset-0 h-full w-full object-cover"
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="metadata"
-        poster="/hero-poster.jpg"
-        aria-hidden
-      >
-        <source src="/hero.webm" type="video/webm" />
-        <source src="/hero.mp4" type="video/mp4" />
-      </video>
+      <HeroVideo />
 
       {/* Scrim: oscuro del lado del texto → más claro del otro (deja ver el video) */}
       <div
