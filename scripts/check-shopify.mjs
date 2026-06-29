@@ -204,6 +204,60 @@ try {
   console.log(c.yellow(`    ⚠ No se pudo leer metaobjects: ${err.message}`));
 }
 
+// --- Metaobjeto hero (video de fondo) -----------------------------------
+console.log(`\n  ${c.bold("Hero (metaobjeto hero):")}`);
+const HERO_QUERY = /* GraphQL */ `
+  query {
+    metaobjects(type: "hero", first: 1) {
+      edges {
+        node {
+          fields {
+            key
+            reference {
+              __typename
+              ... on Video { sources { url mimeType } }
+              ... on MediaImage { image { url } }
+              ... on GenericFile { url }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+try {
+  const hr = await fetch(endpoint, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "X-Shopify-Storefront-Access-Token": TOKEN,
+    },
+    body: JSON.stringify({ query: HERO_QUERY }),
+  });
+  const hb = await hr.json();
+  if (hb.errors?.length) {
+    console.log(c.yellow(`    ⚠ ${hb.errors.map((e) => e.message).join("; ")}`));
+    console.log(c.dim("      Revisa el acceso Storefront en la definición 'hero'."));
+  } else {
+    const node = hb.data?.metaobjects?.edges?.[0]?.node;
+    if (!node) {
+      console.log(c.yellow("    ⚠ Definición visible, pero sin entrada. Crea una con el video."));
+    } else {
+      const ref = (k) => node.fields.find((f) => f.key === k)?.reference;
+      const v = ref("video");
+      const vUrl =
+        v?.__typename === "Video"
+          ? v.sources?.find((s) => s.mimeType === "video/mp4")?.url || v.sources?.[0]?.url
+          : v?.url;
+      const pUrl = ref("poster")?.image?.url;
+      console.log(`    video: ${vUrl ? c.green("✓ " + vUrl.slice(0, 60)) : c.red("✗ (falta key 'video' o acceso)")}`);
+      console.log(`    poster: ${pUrl ? c.green("✓") : c.dim("— (opcional)")}`);
+    }
+  }
+} catch (err) {
+  console.log(c.yellow(`    ⚠ No se pudo leer hero: ${err.message}`));
+}
+
 console.log(
   c.dim(`\n  Siguiente: actualiza la nav y corre 'npm run dev' o 'npm run build'.\n`),
 );
