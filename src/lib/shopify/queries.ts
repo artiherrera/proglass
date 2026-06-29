@@ -181,3 +181,41 @@ export const GET_RESULT_CASES = /* GraphQL */ `
     }
   }
 `;
+
+// Metaobjeto "Hero" (video de fondo) — type handle: hero.
+export const GET_HERO = /* GraphQL */ `
+  query getHero {
+    metaobjects(type: "hero", first: 1) {
+      edges {
+        node {
+          fields {
+            key
+            reference {
+              __typename
+              ... on Video {
+                sources {
+                  url
+                  mimeType
+                  height
+                }
+                previewImage {
+                  url
+                }
+              }
+              ... on MediaImage {
+                image {
+                  url
+                  altText
+                }
+              }
+              ... on GenericFile {
+                url
+                mimeType
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;

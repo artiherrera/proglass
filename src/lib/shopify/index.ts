@@ -21,6 +21,7 @@ import {
   GET_PAGE_BY_HANDLE,
   GET_PRODUCT_BY_HANDLE,
   GET_PRODUCT_RECOMMENDATIONS,
+  GET_HERO,
   GET_PRODUCTS,
   GET_RESULT_CASES,
 } from "./queries";
@@ -28,6 +29,7 @@ import type {
   Cart,
   Collection,
   Connection,
+  Hero,
   Page,
   Product,
   ResultCase,
@@ -321,6 +323,49 @@ export async function getResultCases(): Promise<ResultCase[]> {
   } catch {
     // El metaobjeto puede no existir aún o no estar expuesto a Storefront API.
     return [];
+  }
+}
+
+type HeroFieldRef = {
+  __typename: string;
+  sources?: Array<{ url: string; mimeType: string; height: number | null }>;
+  previewImage?: { url: string } | null;
+  image?: { url: string; altText: string | null } | null;
+  url?: string;
+} | null;
+type HeroNode = { fields: Array<{ key: string; reference: HeroFieldRef }> };
+
+export async function getHero(): Promise<Hero | null> {
+  if (!isShopifyConfigured) return null;
+  try {
+    const data = await shopifyFetch<{ metaobjects: Connection<HeroNode> }>({
+      query: GET_HERO,
+    });
+    const node = flatten(data.metaobjects)[0];
+    if (!node) return null;
+    const ref = (k: string) =>
+      node.fields.find((f) => f.key === k)?.reference ?? null;
+
+    const video = ref("video");
+    const poster = ref("poster");
+
+    let videoUrl: string | null = null;
+    if (video?.__typename === "Video" && video.sources?.length) {
+      // Prefiere mp4; si no, la primera fuente disponible.
+      videoUrl =
+        video.sources.find((s) => s.mimeType === "video/mp4")?.url ??
+        video.sources[0].url;
+    } else if (video?.url) {
+      videoUrl = video.url; // GenericFile (mp4 subido como archivo)
+    }
+
+    const posterUrl =
+      poster?.image?.url ?? video?.previewImage?.url ?? null;
+
+    if (!videoUrl) return null;
+    return { videoUrl, posterUrl };
+  } catch {
+    return null;
   }
 }
 

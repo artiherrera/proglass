@@ -2,15 +2,16 @@ import Link from "next/link";
 
 import { HeroVideo } from "@/components/HeroVideo";
 import { BRAND } from "@/lib/constants";
+import type { Hero as HeroData } from "@/lib/shopify/types";
 
 // Hero con video de fondo + scrim oscuro (degradado) + glow azul para
-// legibilidad. Degrada a fondo Ink si el video/poster aún no existen.
-// Coloca los archivos en /public: hero.mp4, hero.webm (opcional), hero-poster.jpg
-export function Hero() {
+// legibilidad. El video viene del metaobjeto "hero" de Shopify; degrada a
+// fondo Ink si no hay video.
+export function Hero({ video }: { video?: HeroData | null }) {
   return (
     <section className="relative overflow-hidden bg-ink text-paper">
       {/* Video de fondo */}
-      <HeroVideo />
+      <HeroVideo src={video?.videoUrl} poster={video?.posterUrl} />
 
       {/* Scrim: oscuro del lado del texto → más claro del otro (deja ver el video) */}
       <div

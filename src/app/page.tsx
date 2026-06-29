@@ -12,17 +12,23 @@ import { Pillars } from "@/components/home/Pillars";
 import { ResultsShowcase } from "@/components/home/ResultsShowcase";
 import { Stats } from "@/components/home/Stats";
 import { Testimonials } from "@/components/home/Testimonials";
-import { getProducts, getResultCases, isShopifyConfigured } from "@/lib/shopify";
+import {
+  getHero,
+  getProducts,
+  getResultCases,
+  isShopifyConfigured,
+} from "@/lib/shopify";
 
 export default async function HomePage() {
-  const [featured, resultCases] = await Promise.all([
+  const [featured, resultCases, hero] = await Promise.all([
     getProducts({ first: 8, sortKey: "BEST_SELLING" }),
     getResultCases(),
+    getHero(),
   ]);
 
   return (
     <>
-      <Hero />
+      <Hero video={hero} />
       <Guarantees />
 
       {/* Vende el resultado: comparador antes/después */}

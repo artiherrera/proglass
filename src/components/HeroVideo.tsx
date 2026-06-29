@@ -2,10 +2,16 @@
 
 import { useEffect, useRef } from "react";
 
-// Video de fondo del Hero. Fuerza muted + play() en el cliente para que el
-// autoplay funcione de forma confiable (evita la peculiaridad de React con
-// el atributo `muted`). Degrada al poster / fondo Ink si no hay archivo.
-export function HeroVideo() {
+// Video de fondo del Hero. `src`/`poster` vienen del metaobjeto de Shopify;
+// si no hay, cae a los archivos de /public, y si tampoco, al fondo Ink.
+// Fuerza muted + play() para autoplay confiable.
+export function HeroVideo({
+  src,
+  poster,
+}: {
+  src?: string | null;
+  poster?: string | null;
+}) {
   const ref = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -15,10 +21,11 @@ export function HeroVideo() {
     video.play().catch(() => {
       /* algunos navegadores bloquean autoplay; se queda el poster */
     });
-  }, []);
+  }, [src]);
 
   return (
     <video
+      key={src ?? "fallback"}
       ref={ref}
       className="absolute inset-0 h-full w-full object-cover"
       autoPlay
@@ -26,11 +33,17 @@ export function HeroVideo() {
       loop
       playsInline
       preload="metadata"
-      poster="/hero-poster.jpg"
+      poster={poster ?? "/hero-poster.jpg"}
       aria-hidden
     >
-      <source src="/hero.webm" type="video/webm" />
-      <source src="/hero.mp4" type="video/mp4" />
+      {src ? (
+        <source src={src} />
+      ) : (
+        <>
+          <source src="/hero.webm" type="video/webm" />
+          <source src="/hero.mp4" type="video/mp4" />
+        </>
+      )}
     </video>
   );
 }

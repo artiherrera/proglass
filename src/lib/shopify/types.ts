@@ -141,6 +141,12 @@ export type ResultCase = {
   position: number;
 };
 
+// Hero metaobject (background video managed in Shopify Admin).
+export type Hero = {
+  videoUrl: string | null;
+  posterUrl: string | null;
+};
+
 export type ShopifyCollection = Collection;
 
 export type ShopifyCart = Omit<Cart, "lines"> & {
