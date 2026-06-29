@@ -2,29 +2,47 @@ import Link from "next/link";
 
 import { BRAND } from "@/lib/constants";
 
-// Hero oscuro con glow azul (firma visual del manual §10).
-// Para contenido editable, conéctalo a un metaobject "Hero" de Shopify.
+// Hero con video de fondo + scrim oscuro (degradado) + glow azul para
+// legibilidad. Degrada a fondo Ink si el video/poster aún no existen.
+// Coloca los archivos en /public: hero.mp4, hero.webm (opcional), hero-poster.jpg
 export function Hero() {
   return (
     <section className="relative overflow-hidden bg-ink text-paper">
-      {/* Glow azul ProGlass */}
+      {/* Video de fondo */}
+      <video
+        className="absolute inset-0 h-full w-full object-cover"
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="metadata"
+        poster="/hero-poster.jpg"
+        aria-hidden
+      >
+        <source src="/hero.webm" type="video/webm" />
+        <source src="/hero.mp4" type="video/mp4" />
+      </video>
+
+      {/* Scrim: oscuro del lado del texto → más claro del otro (deja ver el video) */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(70%_60%_at_50%_-10%,rgba(11,95,230,0.55),transparent_70%)]"
+        className="absolute inset-0 bg-gradient-to-r from-ink/90 via-ink/70 to-ink/40"
       />
+      {/* Glow azul de marca */}
       <div
         aria-hidden
-        className="pointer-events-none absolute -right-24 top-1/3 h-96 w-96 rounded-full bg-accent/20 blur-3xl"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(70%_60%_at_50%_-10%,rgba(11,95,230,0.35),transparent_70%)]"
       />
 
-      <div className="relative mx-auto flex max-w-7xl flex-col items-start gap-6 px-4 py-24 sm:px-6 lg:px-8 lg:py-32">
-        <span className="rounded-full border border-paper/20 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-blue-300">
+      {/* Contenido */}
+      <div className="relative mx-auto flex max-w-7xl flex-col items-start gap-6 px-4 py-24 sm:px-6 lg:px-8 lg:py-36">
+        <span className="rounded-full border border-paper/20 bg-ink/30 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-blue-300 backdrop-blur-sm">
           {BRAND.madeIn}
         </span>
-        <h1 className="max-w-3xl font-display text-4xl font-extrabold uppercase italic leading-[1.05] sm:text-6xl lg:text-7xl">
+        <h1 className="max-w-3xl font-display text-4xl font-extrabold uppercase italic leading-[1.05] drop-shadow-sm sm:text-6xl lg:text-7xl">
           {BRAND.tagline}
         </h1>
-        <p className="max-w-xl text-base text-paper/70 sm:text-lg">
+        <p className="max-w-xl text-base text-paper/80 sm:text-lg">
           Limpia, protege y conserva tu calzado, lentes y más — con estándar
           profesional y resultados que se notan desde el primer uso.
         </p>
@@ -37,7 +55,7 @@ export function Hero() {
           </Link>
           <Link
             href="/collections/mas-vendidos"
-            className="rounded-xl border border-paper/30 px-7 py-3.5 text-sm font-semibold text-paper transition-colors hover:bg-paper/10"
+            className="rounded-xl border border-paper/30 bg-ink/20 px-7 py-3.5 text-sm font-semibold text-paper backdrop-blur-sm transition-colors hover:bg-paper/10"
           >
             Más vendidos
           </Link>
