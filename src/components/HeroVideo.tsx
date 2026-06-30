@@ -3,8 +3,11 @@
 import { useCallback, useEffect, useRef } from "react";
 
 // Video de fondo del Hero. `src`/`poster` vienen del metaobjeto de Shopify.
-// Autoplay robusto: fuerza muted + reintenta play() en varios eventos
-// (evita bloqueos de autoplay y la peculiaridad de React con `muted`).
+// Autoplay robusto + bucle infinito auto-reanudable: fuerza muted + reintenta
+// play() en carga, al pausarse (el navegador lo pausa al cambiar de pestaña /
+// bajo consumo / stall de buffer) y al volver la pestaña a primer plano. Como
+// es decorativo (aria-hidden, sin controles) el usuario nunca lo pausa, así
+// que reanudar siempre es seguro y mantiene el loop realmente infinito.
 export function HeroVideo({
   src,
   poster,
@@ -25,6 +28,11 @@ export function HeroVideo({
 
   useEffect(() => {
     play();
+    const onVisible = () => {
+      if (document.visibilityState === "visible") play();
+    };
+    document.addEventListener("visibilitychange", onVisible);
+    return () => document.removeEventListener("visibilitychange", onVisible);
   }, [play, src]);
 
   return (
@@ -39,6 +47,7 @@ export function HeroVideo({
       poster={poster ?? undefined}
       onLoadedData={play}
       onCanPlay={play}
+      onPause={play}
       aria-hidden
     >
       {src ? (
