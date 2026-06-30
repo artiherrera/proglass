@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 
-// Video de fondo del Hero. `src`/`poster` vienen del metaobjeto de Shopify;
-// si no hay, cae a los archivos de /public, y si tampoco, al fondo Ink.
-// Fuerza muted + play() para autoplay confiable.
+// Video de fondo del Hero. `src`/`poster` vienen del metaobjeto de Shopify.
+// Autoplay robusto: fuerza muted + reintenta play() en varios eventos
+// (evita bloqueos de autoplay y la peculiaridad de React con `muted`).
 export function HeroVideo({
   src,
   poster,
@@ -14,30 +14,35 @@ export function HeroVideo({
 }) {
   const ref = useRef<HTMLVideoElement>(null);
 
-  useEffect(() => {
+  const play = useCallback(() => {
     const video = ref.current;
     if (!video) return;
     video.muted = true;
-    video.play().catch(() => {
-      /* algunos navegadores bloquean autoplay; se queda el poster */
-    });
-  }, [src]);
+    video.defaultMuted = true;
+    const p = video.play();
+    if (p) p.catch(() => {});
+  }, []);
+
+  useEffect(() => {
+    play();
+  }, [play, src]);
 
   return (
     <video
-      key={src ?? "fallback"}
       ref={ref}
       className="absolute inset-0 h-full w-full object-cover"
       autoPlay
       muted
       loop
       playsInline
-      preload="metadata"
-      poster={poster ?? "/hero-poster.jpg"}
+      preload="auto"
+      poster={poster ?? undefined}
+      onLoadedData={play}
+      onCanPlay={play}
       aria-hidden
     >
       {src ? (
-        <source src={src} />
+        <source src={src} type="video/mp4" />
       ) : (
         <>
           <source src="/hero.webm" type="video/webm" />

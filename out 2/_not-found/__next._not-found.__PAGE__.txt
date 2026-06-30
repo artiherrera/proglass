@@ -1,0 +1,6 @@
+1:"$Sreact.fragment"
+2:I[22016,["/_next/static/chunks/0z-1rd0552l24.js","/_next/static/chunks/14mrh2-p_w84d.js","/_next/static/chunks/189n4s2k3iejd.js"],""]
+3:I[97367,["/_next/static/chunks/0z-1rd0552l24.js","/_next/static/chunks/14mrh2-p_w84d.js","/_next/static/chunks/189n4s2k3iejd.js"],"OutletBoundary"]
+4:"$Sreact.suspense"
+0:{"rsc":["$","$1","c",{"children":[["$","div",null,{"className":"mx-auto flex max-w-7xl flex-col items-center justify-center gap-4 px-4 py-32 text-center","children":[["$","p",null,{"className":"font-display text-6xl text-accent","children":"404"}],["$","h1",null,{"className":"font-serif text-2xl text-ink","children":"Página no encontrada"}],["$","p",null,{"className":"text-ink-soft","children":"El enlace que buscas no existe o el producto ya no está disponible."}],["$","$L2",null,{"href":"/","className":"mt-2 rounded-full bg-ink px-7 py-3 text-sm font-medium text-paper hover:bg-ink-soft","children":"Volver al inicio"}]]}],null,["$","$L3",null,{"children":["$","$4",null,{"name":"Next.MetadataOutlet","children":"$@5"}]}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"dchVHPsuKyUy_jfPRFBoH"}
+5:null
