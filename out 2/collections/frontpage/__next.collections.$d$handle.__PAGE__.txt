@@ -1,5 +1,0 @@
-1:"$Sreact.fragment"
-2:I[97367,["/_next/static/chunks/0z-1rd0552l24.js","/_next/static/chunks/14mrh2-p_w84d.js","/_next/static/chunks/189n4s2k3iejd.js"],"OutletBoundary"]
-3:"$Sreact.suspense"
-0:{"rsc":["$","$1","c",{"children":[["$","div",null,{"className":"mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8","children":[["$","header",null,{"className":"mb-10 max-w-2xl","children":[["$","h1",null,{"className":"font-serif text-3xl text-ink sm:text-4xl","children":"Home page"}],"",["$","p",null,{"className":"mt-4 text-sm text-ink-soft/60","children":[0," ","productos"]}]]}],["$","p",null,{"className":"text-ink-soft","children":"Esta colección aún no tiene productos."}]]}],null,["$","$L2",null,{"children":["$","$3",null,{"name":"Next.MetadataOutlet","children":"$@4"}]}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"dchVHPsuKyUy_jfPRFBoH"}
-4:null

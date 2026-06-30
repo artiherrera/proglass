@@ -17,6 +17,10 @@
 /.next/
 /out/
 
+# iCloud/Finder duplicate copies (repo lives under ~/Documents)
+* 2
+* 2.*
+
 # production
 /build
 

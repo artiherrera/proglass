@@ -1,6 +1,0 @@
-1:"$Sreact.fragment"
-2:I[22016,["/_next/static/chunks/0z-1rd0552l24.js","/_next/static/chunks/14mrh2-p_w84d.js","/_next/static/chunks/189n4s2k3iejd.js"],""]
-3:I[97367,["/_next/static/chunks/0z-1rd0552l24.js","/_next/static/chunks/14mrh2-p_w84d.js","/_next/static/chunks/189n4s2k3iejd.js"],"OutletBoundary"]
-4:"$Sreact.suspense"
-0:{"rsc":["$","$1","c",{"children":[["$","div",null,{"className":"mx-auto flex max-w-2xl flex-col items-center gap-4 px-4 py-24 text-center sm:px-6","children":[["$","span",null,{"className":"rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-accent","children":"Próximamente"}],["$","h1",null,{"className":"font-serif text-3xl text-ink sm:text-4xl","children":"Visual"}],["$","p",null,{"className":"text-ink-soft","children":"Estamos preparando esta colección. Mientras tanto, descubre nuestros productos más vendidos."}],["$","$L2",null,{"href":"/collections/mas-vendidos","className":"mt-2 rounded-xl bg-accent px-7 py-3 text-sm font-semibold text-paper hover:bg-accent-dark","children":"Ver más vendidos"}]]}],null,["$","$L3",null,{"children":["$","$4",null,{"name":"Next.MetadataOutlet","children":"$@5"}]}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"dchVHPsuKyUy_jfPRFBoH"}
-5:null

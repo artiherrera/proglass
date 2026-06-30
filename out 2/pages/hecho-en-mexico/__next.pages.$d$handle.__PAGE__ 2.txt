@@ -1,5 +1,0 @@
-1:"$Sreact.fragment"
-2:I[97367,["/_next/static/chunks/0z-1rd0552l24.js","/_next/static/chunks/14mrh2-p_w84d.js","/_next/static/chunks/189n4s2k3iejd.js"],"OutletBoundary"]
-3:"$Sreact.suspense"
-0:{"rsc":["$","$1","c",{"children":[["$","article",null,{"className":"mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8","children":[["$","h1",null,{"className":"font-serif text-3xl text-ink sm:text-4xl","children":"Hecho en México"}],["$","div",null,{"className":"mt-8 text-sm leading-relaxed text-ink-soft [&_a]:text-accent [&_a]:underline [&_h2]:mt-8 [&_h2]:font-serif [&_h2]:text-lg [&_h2]:text-ink [&_li]:my-1 [&_ol]:list-decimal [&_ol]:pl-5 [&_p]:my-4 [&_ul]:list-disc [&_ul]:pl-5","dangerouslySetInnerHTML":{"__html":"\n      <p>Cada producto ProGlass se desarrolla y produce en México, pensando en ti.</p>\n      <p>Apostamos por la calidad local, fórmulas de alto rendimiento y resultados que se notan. <strong>Cuidado premium para tu día a día.</strong></p>\n    "}}]]}],null,["$","$L2",null,{"children":["$","$3",null,{"name":"Next.MetadataOutlet","children":"$@4"}]}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"dchVHPsuKyUy_jfPRFBoH"}
-4:null
