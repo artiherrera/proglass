@@ -358,14 +358,17 @@ export async function getHero(): Promise<Hero | null> {
       node.fields.find((f) => keys.includes(f.key))?.reference ?? null;
 
     const video = ref("video");
-    const howto = ref("howto_video", "how_to_video");
+    // Acepta variantes de clave (guion bajo / guion) por si Shopify la genera
+    // distinto al crear el campo del metaobjeto.
+    const howto = ref("howto_video", "how_to_video", "howto-video", "how-to-video");
 
     return {
       videoUrl: videoUrlFromRef(video),
       posterUrl: ref("poster")?.image?.url ?? video?.previewImage?.url ?? null,
       howtoVideoUrl: videoUrlFromRef(howto),
       howtoPosterUrl:
-        ref("howto_poster", "how_to_poster")?.image?.url ??
+        ref("howto_poster", "how_to_poster", "howto-poster", "how-to-poster")
+          ?.image?.url ??
         howto?.previewImage?.url ??
         null,
     };
