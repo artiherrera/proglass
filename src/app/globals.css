@@ -73,6 +73,17 @@ body {
   letter-spacing: 0.01em;
 }
 
+/* Video de fondo del hero: decorativo, sin controles. Oculta el botón de
+   "play" central que WebKit/iOS muestra cuando bloquea el autoplay (modo bajo
+   consumo, "Auto-Play: Never"). El video arranca solo o al primer gesto. */
+.hero-video::-webkit-media-controls-start-playback-button {
+  display: none !important;
+  -webkit-appearance: none;
+}
+.hero-video::-webkit-media-controls {
+  display: none !important;
+}
+
 ::selection {
   background: var(--color-accent);
   color: #ffffff;
