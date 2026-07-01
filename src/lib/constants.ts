@@ -67,7 +67,8 @@ export const SOCIAL = {
   instagram: "https://instagram.com/proglass",
   tiktok: "https://tiktok.com/@proglass",
   facebook: "https://facebook.com/proglass",
-  whatsapp: "https://wa.me/52",
+  // Formato wa.me = solo dígitos (código país + número). MX: 52 + 10 dígitos.
+  whatsapp: "https://wa.me/524427886952",
 } as const;
 
 // Acentos por categoría (manual §2 / §7.4). Mapea el handle de la
